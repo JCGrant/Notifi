@@ -26,8 +26,8 @@ public class SmsReceiver extends BroadcastReceiver {
         if (intent.getAction().equals("android.provider.Telephony.SMS_RECEIVED")) {
             Bundle bundle = intent.getExtras();
             byte[][] pdus = (byte[][]) bundle.get("pdus");
-            for (int i = 0; i < pdus.length; i++) {
-                SmsMessage message = SmsMessage.createFromPdu(pdus[i]);
+            for (byte[] pdu : pdus) {
+                SmsMessage message = SmsMessage.createFromPdu(pdu);
                 JSONObject json = new JSONObject();
                 try {
                     json.put("from", message.getOriginatingAddress());
